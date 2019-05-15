@@ -27,7 +27,7 @@ class PortfolioController extends Controller
             var_dump($memcache->get('obj_key'));
         }
         else {
-            echo "Connection to memcached failed!!!!";
+            echo "Connection to memcached failed";
         }
     }
 
