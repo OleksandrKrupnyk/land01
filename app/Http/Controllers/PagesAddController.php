@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Menu\AdminMenu;
 use App\Page;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class PagesAddController extends Controller
         if (!view()->exists("admin.pages_add")) abort("404");
         if ($request->isMethod('get')) {
             $title = __("New Page");
-            return view('admin.pages_add', compact('title'));
+            $menu = AdminMenu::get();
+            return view('admin.pages_add', compact('title','menu'));
         } elseif ($request->isMethod('post')) {
 
             $input = $request->except('_token');

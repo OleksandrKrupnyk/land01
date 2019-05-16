@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Menu\AdminMenu;
 use App\Page;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class PagesEditController extends Controller
 
                 $title = __('Edit page')." - {$old['name']}";
                 $data = $old;
-                return view('admin.pages_edit',compact('title','data'));
+                $menu = AdminMenu::get();
+                return view('admin.pages_edit',compact('title','data','menu'));
             }else abort("404");
 
         }else if($request->isMethod('post')){

@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 });*/
 
+use App\Http\Controllers\Menu\AdminMenu;
+
 Route::group(['middleware'=>'web'],function(){
 
 	Route::match(['get','post'],'/',['uses'=>'IndexController@execute'])->name('homepage');
@@ -34,7 +36,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
         if(view()->exists('admin.index'))
         {
 	        $title = __('Admin Panel');
-            return view('admin.index',compact('title'));
+	        $menu = AdminMenu::get();
+            return view('admin.index',compact('title','menu'));
         }
 
 	})->name('admin');
@@ -53,7 +56,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
 	//admin/porfolio
 	Route::group(['prefix'=>'portfolios'],function(){
 		//admin/porfolios/
-		Route::get('/',['uses'=>'PortfolioController@index'])->name('portfolio');
+		Route::get('/',['uses'=>'PortfolioController@index'])->name('portfolios');
 		//admin/porfolios/add
 		Route::match(['get','post'],'/add',['uses'=>'PortfolioController@add'])->name('portfolioAdd');
 		//admin/porfolios/edit/1
