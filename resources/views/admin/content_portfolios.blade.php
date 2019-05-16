@@ -18,6 +18,7 @@
                         <h4 class="project_name">
                             {!! Html::linkRoute('portfoliosEdit',$portfolio->name,$portfolio->id,['class'=>'btn btn-primary']) !!}
                         </h4>
+                        {!! Html::tag("div","#".$portfolio->filter,['class'=>'btn btn-info']) !!}
                         {!! Form::open(['url'=>route('portfoliosEdit',['portfolio'=>$portfolio->id]),'method'=>'post']) !!}
                         {{method_field('DELETE')}}
                         {!! Form::submit(__('Delete'), ['class' => 'form-control btn btn-alert']) !!}

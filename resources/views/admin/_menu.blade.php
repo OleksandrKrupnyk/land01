@@ -1,6 +1,6 @@
 <div id="filters" class="sixteen columns">
     @if(isset($menu) && is_array($menu))
-        <ul style="padding:0">
+        <ul style="padding:0;">
             @foreach($menu as $alias=>$item)
                 <li>
                     @if($item['active'])

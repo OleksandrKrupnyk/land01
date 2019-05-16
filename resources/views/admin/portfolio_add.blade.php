@@ -8,6 +8,6 @@
 
 @section('content')
 
-    @include('admin.content_portfolios')
+    @include('admin.content_portfolios_add')
 
 @endsection

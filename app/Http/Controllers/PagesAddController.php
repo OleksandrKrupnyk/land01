@@ -14,15 +14,15 @@ class PagesAddController extends Controller
         if ($request->isMethod('get')) {
             $title = __("New Page");
             $menu = AdminMenu::get();
-            return view('admin.pages_add', compact('title','menu'));
+            return view('admin.pages_add', compact('title', 'menu'));
         } elseif ($request->isMethod('post')) {
 
             $input = $request->except('_token');
 
             $messages = [
 
-                'required'=>'Поле :attribute обязательно к заполнению',
-                'unique'=>'Поле :attribute должно быть уникальным'
+                'required' => 'Поле :attribute обязательно к заполнению',
+                'unique' => 'Поле :attribute должно быть уникальным'
 
             ];
 
@@ -32,19 +32,19 @@ class PagesAddController extends Controller
                 'text' => 'required'
             ];
 
-            $validator = \Validator::make($input, $rules,$messages);
+            $validator = \Validator::make($input, $rules, $messages);
 
             // Неверные данные
             if ($validator->fails()) return redirect()->route('pagesAdd')->withErrors($validator)->withInput();
 
 
-            if($request->hasFile('images')){
+            if ($request->hasFile('images')) {
 
                 $file = $request->file('images');
                 $fileName = $file->getClientOriginalName();
-                $file->move(public_path().'/assets/img',$fileName);
+                $file->move(public_path() . '/assets/img', $fileName);
 
-            }else{
+            } else {
                 $fileName = "";
             }
 
@@ -54,8 +54,8 @@ class PagesAddController extends Controller
 
             $page->fill($input);
 
-            if($page->save()){
-                return redirect()->route('admin')->with('status',__('Page was add'));
+            if ($page->save()) {
+                return redirect()->route('admin')->with('status', __('Page was add'));
             }
 
         } else {
