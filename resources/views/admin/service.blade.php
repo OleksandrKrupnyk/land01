@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('header')
 
     @include('admin.header')
@@ -7,6 +8,6 @@
 
 @section('content')
 
-    @include('admin.content_pages_add')
+    @include('admin.index_service')
 
 @endsection

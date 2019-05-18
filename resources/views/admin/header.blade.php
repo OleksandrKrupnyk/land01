@@ -10,5 +10,5 @@
 <!-- Container -->
 
 <div class="portfolio">
-    @include('admin._menu');
+    @include('admin._menu')
 </div>

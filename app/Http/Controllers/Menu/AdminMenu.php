@@ -8,9 +8,10 @@ abstract class  AdminMenu
 
     const MENU
         = [
+            'homepage' => ['name' => 'Site', 'active' => true],
             'pages' => ['name' => 'Pages', 'active' => true],
             'portfolios' => ['name' => 'Portfolios', 'active' => true],
-            'services' => ['name' => 'Services', 'active' => true],
+            'service.index' => ['name' => 'Services', 'active' => true],
 
         ];
 

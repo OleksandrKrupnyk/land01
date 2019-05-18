@@ -1,3 +1,6 @@
+<div style="display: flex; flex-flow: row nowrap;justify-content: center; padding: 5px ; flex:0 0 100%">
+    {!! Html::linkRoute('pagesAdd',__('New Page'),null,['class'=>'btn btn-primary']) !!}
+</div>
 <div style="margin:0 50px 0 50px;">
 
     @if($pages)
@@ -21,13 +24,13 @@
                 <tr>
 
                     <td>{{ $page->id }}</td>
-                    <td>{!! Html::linkRoute('pagesEdit',$page->name,['page'=>$page->id],['alt'=>$page->name]) !!}</td>
+                    <td>{!! Html::linkRoute('pagesEdit',$page->name,['page'=>$page->slug],['alt'=>$page->name]) !!}</td>
                     <td>{{ $page->alias }}</td>
                     <td>{!! $page->short_text !!}</td>
                     <td>{{ $page->created_at }}</td>
 
                     <td>
-                        {!! Form::open(['url'=>route('pagesEdit',['page'=>$page->id]), 'class'=>'form-horizontal','method' => 'POST']) !!}
+                        {!! Form::open(['url'=>route('pagesEdit',['page'=>$page->slug]), 'class'=>'form-horizontal','method' => 'POST']) !!}
 
                         {{ method_field('DELETE') }}
                         {!! Form::button(__('Delete'),['class'=>' btn btn-danger','type'=>'submit']) !!}
@@ -44,6 +47,4 @@
     @else
         <h1>{{__('No Pages found')}}</h1>
     @endif
-
-    {!! Html::linkRoute('pagesAdd',__('New Page'),null,['class'=>'btn btn-primary']) !!}
 </div>

@@ -65,13 +65,22 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
 
 
 	//admin/services
-	Route::group(['prefix'=>'services'],function(){
-		//admin/services/
-		Route::get('/',['uses'=>'ServiceController@execute'])->name('services');
+	Route::group([],function(){
+
+	    Route::resource('service', 'ServiceController')->except('show');
+/*
+                'create'=>'servicesAdd',
+                'show'=>'serviceShow',
+                'edit'=>'serviceEdit',
+                'update'=>'serviceUpdate',
+                'destroy'=>'serviceDelete'
+                ]);*/
+	    //admin/services/
+		//Route::get('/',['uses'=>'ServiceController@execute'])->name('services');
 		//admin/services/add
-		Route::match(['get','post'],'/add',['uses'=>'ServiceAddController@execute'])->name('servicesAdd');
+		//Route::match(['get','post'],'/add',['uses'=>'ServiceAddController@execute'])->name('servicesAdd');
 		//admin/services/edit/1
-		Route::match(['get','post','delete'],'/edit/{portfolio}',['uses'=>'ServiceEditController@execute'])->name('servicesEdit');
+		//Route::match(['get','post','delete'],'/edit/{portfolio}',['uses'=>'ServiceEditController@execute'])->name('servicesEdit');
 	});
 
 });
