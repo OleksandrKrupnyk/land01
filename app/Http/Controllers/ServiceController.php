@@ -16,7 +16,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        if(!view()->exists('admin.service')) abort('404');
+        if(!view()->exists('admin.service')) {
+            abort('404');
+        }
         $services = Service::all();
         $title = __('Services');
         $menu = AdminMenu::get('services');
@@ -33,7 +35,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        if(!view()->exists('admin.service_add')) abort('404');
+        if(!view()->exists('admin.service_add')) {
+            abort('404');
+        }
 
         $menu = AdminMenu::get();
         $title = __('Add service');
@@ -72,7 +76,9 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $data = $service->toArray();
-        if(!view()->exists('admin.service_edit')) abort('404');
+        if(!view()->exists('admin.service_edit')) {
+            abort('404');
+        }
         $menu = AdminMenu::get();
         $title = __('Edit service');
         $icons = FaIcon::getIcons();

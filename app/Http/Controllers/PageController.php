@@ -8,7 +8,9 @@ class PageController extends Controller
 {
     public function execute($alias)
     {
-        if (!$alias || !view()->exists('site.page')) abort(404);
+        if (!$alias || !view()->exists('site.page')) {
+            abort(404);
+        }
 
         $page = Page::where('alias', strip_tags($alias))->first();
         $title = $page->name;

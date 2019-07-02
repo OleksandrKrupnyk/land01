@@ -42,7 +42,6 @@ class IndexController extends Controller
             $this->validate($request, $rules, $messages);
 
             $data = $request->except('_token');
-            $message = new OrderShipped($data);
 
             Mail::send(new OrderShipped($data));
 

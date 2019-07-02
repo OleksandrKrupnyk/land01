@@ -45,7 +45,7 @@ class PortfolioController extends Controller
                 'required' => 'Поле :attribute обязательно к заполнению'
             ];
 
-            $validator = \Validator::make($input, $rules, $messages);
+            $validator = Validator::make($input, $rules, $messages);
 
             // Неверные данные
             if ($validator->fails()) return redirect()->route('portfolioAdd')->withErrors($validator)->withInput();
@@ -58,7 +58,7 @@ class PortfolioController extends Controller
                 $file->move(public_path() . '/assets/img', $fileName);
 
             } else {
-                $fileName = "";
+                $fileName = '';
             }
 
             $input['images'] = $fileName;
@@ -85,7 +85,9 @@ class PortfolioController extends Controller
     public function edit(Portfolio $portfolio, Request $request)
     {
         if ($request->isMethod('get')) {
-            if (!view()->exists('admin.portfolio_edit')) abort('404');
+            if (!view()->exists('admin.portfolio_edit')) {
+                abort('404');
+            }
 
             $menu = AdminMenu::get();
             $data = $portfolio->toArray();
@@ -107,10 +109,12 @@ class PortfolioController extends Controller
                 'filter' => 'required'
             ];
 
-            $validator = \Validator::make($input, $rules, $messages);
+            $validator = Validator::make($input, $rules, $messages);
 
             // Неверные данные
-            if ($validator->fails()) return redirect()->route('portfoliosEdit', ['portfolio' => $input['id']])->withErrors($validator)->withInput();
+            if ($validator->fails()) {
+                return redirect()->route('portfoliosEdit', ['portfolio' => $input['id']])->withErrors($validator)->withInput();
+            }
 
             if ($request->hasFile('images')) {
 
@@ -119,7 +123,7 @@ class PortfolioController extends Controller
                 $file->move(public_path() . '/assets/img', $fileName);
 
             } else {
-                $fileName = (!empty($input['old_images'])) ? $input['old_images'] : "";
+                $fileName = !empty($input['old_images']) ? $input['old_images'] : '';
             }
             $input['images'] = $fileName;
             unset($input['old_images']);
@@ -134,12 +138,14 @@ class PortfolioController extends Controller
 
             if (!empty($portfolio->images)) {
                 $file = public_path() . '/assets/img/' . $portfolio->images;
-                if (!File::delete($file)) return redirect()->route('portfolios')->with('status', __('Unable to delete file '));
+                if (!File::delete($file)) {
+                    return redirect()->route('portfolios')->with('status', __('Unable to delete file '));
+                }
             }
             $portfolio->delete();
             return redirect()->route('admin')->with('status', __('Portfolio was deleted'));
         } else {
-            abort("404");
+            abort('404');
         }
 
     }

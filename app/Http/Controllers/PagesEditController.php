@@ -6,6 +6,7 @@ use App\Http\Controllers\Menu\AdminMenu;
 use App\Page;
 use File;
 use Illuminate\Http\Request;
+use Validator;
 
 class PagesEditController extends Controller
 {
@@ -23,7 +24,9 @@ class PagesEditController extends Controller
 
             if (!empty($page->images)) {
                 $file = public_path() . '/assets/img/' . $page->images;
-                if (!File::delete($file)) return redirect()->route('pages')->with('status', __('Unable to delete file '));
+                if (!File::delete($file)) {
+                    return redirect()->route('pages')->with('status', __('Unable to delete file '));
+                }
             }
 
             $page->delete();
@@ -38,7 +41,9 @@ class PagesEditController extends Controller
                 $data = $old;
                 $menu = AdminMenu::get();
                 return view('admin.pages_edit', compact('title', 'data', 'menu'));
-            } else abort("404");
+            } else {
+                abort('404');
+            }
 
         } else if ($request->isMethod('post')) {
 
@@ -57,10 +62,12 @@ class PagesEditController extends Controller
                 'text' => 'required'
             ];
 
-            $validator = \Validator::make($input, $rules, $messages);
+            $validator = Validator::make($input, $rules, $messages);
 
             // Неверные данные
-            if ($validator->fails()) return redirect()->route('pagesEdit', ['page' => $input['id']])->withErrors($validator)->withInput();
+            if ($validator->fails()) {
+                return redirect()->route('pagesEdit', ['page' => $input['id']])->withErrors($validator)->withInput();
+            }
 
             if ($request->hasFile('images')) {
 
@@ -69,7 +76,7 @@ class PagesEditController extends Controller
                 $file->move(public_path() . '/assets/img', $fileName);
 
             } else {
-                $fileName = (!empty($input['old_images'])) ? $input['old_images'] : "";
+                $fileName = !empty($input['old_images']) ? $input['old_images'] : '';
             }
             $input['images'] = $fileName;
             unset($input['old_images']);
@@ -79,7 +86,7 @@ class PagesEditController extends Controller
                 return redirect('admin')->with('status', __('Page was updated'));
             }
         } else {
-            abort("404");
+            abort('404');
         }
     }
 }
