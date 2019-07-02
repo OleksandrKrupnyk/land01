@@ -64,7 +64,8 @@ class ServiceController extends Controller
             $request->input()
         );
 
-        return redirect()->route('service.index')->with('status',__('Service was created'));
+        return redirect()->route('service.index')
+            ->with('status',__('Service was created'));
     }
 
     /**
@@ -101,7 +102,8 @@ class ServiceController extends Controller
         ]);
         $service->fill($validatedData);
         $service->update();
-        return redirect()->route('service.index')->with('status',__('Service was save'));
+        return redirect()->route('service.index')
+            ->with('status',__('Service was save'));
     }
 
     /**
@@ -113,6 +115,7 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         Service::destroy($id);
-        return redirect()->route('service.index')->with('status',__('Service was deleted'));
+        return redirect()->route('service.index')
+            ->with('status',__('Service was deleted'));
     }
 }

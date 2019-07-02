@@ -222,15 +222,15 @@
                     <div class="contact_info">
                         <div class="detail">
                             <h4>UNIQUE Infoway</h4>
-                            <p>1, Mira avenue, Krolevets, Ukraine</p>
+                            <p>221, Some avenue, Town, Ukraine</p>
                         </div>
                         <div class="detail">
                             <h4>call us</h4>
-                            <p>+380 (5453) 52078</p>
+                            <p>+380 (012) 123456</p>
                         </div>
                         <div class="detail">
                             <h4>Email us</h4>
-                            <p>support@land.loc</p>
+                            <p>support@land-01.zzz.com.ua</p>
                         </div>
                     </div>
 
@@ -247,7 +247,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-8 wow fadeInLeft delay-06s">
-                    <form action="{{ route('home')}}" method="post">
+                    <form action="{{ route('homepage')}}" method="post">
                         <div class="form">
                         {{csrf_field()}}
                             {!! Form::text('name','Your Name *',[

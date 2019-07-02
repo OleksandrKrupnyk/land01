@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\OrderShipped;
-use Cache;
-use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Mail\OrderShipped;
 use App\Page;
-use App\Service;
-use App\Portfolio;
 use App\People;
-use Carbon\Carbon;
-
+use App\Portfolio;
+use App\Service;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
 
@@ -28,6 +25,8 @@ class IndexController extends Controller
     public function execute(Request $request)
     {
         if ($request->isMethod('post')) {
+            return redirect()->route('homepage');
+            /*
             $rules = [
                 'name' => 'required|max:255',
                 'email' => 'required|email',
@@ -46,21 +45,15 @@ class IndexController extends Controller
             Mail::send(new OrderShipped($data));
 
             if(!Mail::failures()) {
-                return redirect()->route('home')->with('status', 'E-mail was send');
+                return redirect()->route('homepage')
+                    ->with('status', 'E-mail was send');
+
             }
+            */
         }
 
         $pages = Page::all();
-        if(Cache::has('portfolio')){
-            $portfolios = Cache::get('portfolio', 'default');;
-
-        }else{
-            $portfolios = Portfolio::get(['name', 'filter', 'images']);
-            Cache::put('portfolio',$portfolios,300);
-//            dd(config('cache.default'));
-//            dd(Carbon::now());
-        }
-        //$portfolios = Portfolio::get(['name', 'filter', 'images']);
+        $portfolios = Portfolio::get(['name', 'filter', 'images']);
 
         $services = Service::where('id', '<', 20)->get();
         $peoples = People::take(3)->get();

@@ -10,21 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/* standart routes
-Route::get('/', function () {
-    return view('welcome');
-
-});*/
-
 use App\Http\Controllers\Menu\AdminMenu;
 
 Route::group(['middleware'=>'web'],function(){
 
-	Route::match(['get','post'],'/',['uses'=>'IndexController@execute'])->name('homepage');
-	Route::get('/page/{alias}',['uses'=>'PageController@execute'])->name('page');
-
-
+	Route::match(['get','post'],'/',['uses'=>'IndexController@execute'])
+        ->name('homepage');
+	Route::get('/page/{alias}',['uses'=>'PageController@execute'])
+        ->name('page');
 	Route::auth();
 });
 
@@ -45,42 +38,37 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function(){
 	//admin/pages
 	Route::group(['prefix'=>'pages'],function(){
 		//admin/pages
-		Route::get('/',['uses'=>'PagesController@execute'])->name('pages');
+		Route::get('/',['uses'=>'PagesController@execute'])
+            ->name('pages');
 		//admin/pages/add
-		Route::match(['get','post'],'/add',['uses'=>'PagesAddController@execute'])->name('pagesAdd');
+		Route::match(['get','post'],'/add',['uses'=>'PagesAddController@execute'])
+            ->name('pagesAdd');
 
 		//admin/pages/edit/1
-		Route::match(['get','post','delete'],'/edit/{page}',['uses'=>'PagesEditController@execute'])->name('pagesEdit');
+		Route::match(['get','post','delete'],'/edit/{page}',['uses'=>'PagesEditController@execute'])
+            ->name('pagesEdit');
 	});
 
 	//admin/porfolio
 	Route::group(['prefix'=>'portfolios'],function(){
 		//admin/porfolios/
-		Route::get('/',['uses'=>'PortfolioController@index'])->name('portfolios');
+		Route::get('/',['uses'=>'PortfolioController@index'])
+            ->name('portfolios');
 		//admin/porfolios/add
-		Route::match(['get','post'],'/add',['uses'=>'PortfolioController@add'])->name('portfolioAdd');
+		Route::match(['get','post'],'/add',['uses'=>'PortfolioController@add'])
+            ->name('portfolioAdd');
 		//admin/porfolios/edit/1
-		Route::match(['get','post','delete'],'/edit/{portfolio}',['uses'=>'PortfolioController@edit'])->name('portfoliosEdit');
+		Route::match(['get','post','delete'],'/edit/{portfolio}',['uses'=>'PortfolioController@edit'])
+            ->name('portfoliosEdit');
 	});
 
 
 	//admin/services
 	Route::group([],function(){
 
-	    Route::resource('service', 'ServiceController')->except('show');
-/*
-                'create'=>'servicesAdd',
-                'show'=>'serviceShow',
-                'edit'=>'serviceEdit',
-                'update'=>'serviceUpdate',
-                'destroy'=>'serviceDelete'
-                ]);*/
-	    //admin/services/
-		//Route::get('/',['uses'=>'ServiceController@execute'])->name('services');
-		//admin/services/add
-		//Route::match(['get','post'],'/add',['uses'=>'ServiceAddController@execute'])->name('servicesAdd');
-		//admin/services/edit/1
-		//Route::match(['get','post','delete'],'/edit/{portfolio}',['uses'=>'ServiceEditController@execute'])->name('servicesEdit');
+	    Route::resource('service', 'ServiceController')
+            ->except('show');
+
 	});
 
 });
